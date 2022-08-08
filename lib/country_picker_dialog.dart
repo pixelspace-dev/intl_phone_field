@@ -112,6 +112,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
               ),
             ),
             SizedBox(height: 20),
+            Text("TEST"),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
