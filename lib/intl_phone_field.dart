@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:intl_phone_field_toki_toki/country_picker_dialog.dart';
 
 import './countries.dart';
 import './phone_number.dart';
@@ -308,19 +308,25 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     if (widget.initialCountryCode == null && number.startsWith('+')) {
       number = number.substring(1);
       // parse initial value
-      _selectedCountry = countries.firstWhere((country) => number.startsWith(country.fullCountryCode), orElse: () => _countryList.first);
+      _selectedCountry = countries.firstWhere(
+          (country) => number.startsWith(country.fullCountryCode),
+          orElse: () => _countryList.first);
 
       // remove country code from the initial number value
-      number = number.replaceFirst(RegExp("^${_selectedCountry.fullCountryCode}"), "");
+      number = number.replaceFirst(
+          RegExp("^${_selectedCountry.fullCountryCode}"), "");
     } else {
-      _selectedCountry =
-          _countryList.firstWhere((item) => item.code == (widget.initialCountryCode ?? 'US'), orElse: () => _countryList.first);
+      _selectedCountry = _countryList.firstWhere(
+          (item) => item.code == (widget.initialCountryCode ?? 'US'),
+          orElse: () => _countryList.first);
 
       // remove country code from the initial number value
-      if(number.startsWith('+')){
-        number = number.replaceFirst(RegExp("^\\+${_selectedCountry.fullCountryCode}"), "");
-      }else{
-        number = number.replaceFirst(RegExp("^${_selectedCountry.fullCountryCode}"), "");
+      if (number.startsWith('+')) {
+        number = number.replaceFirst(
+            RegExp("^\\+${_selectedCountry.fullCountryCode}"), "");
+      } else {
+        number = number.replaceFirst(
+            RegExp("^${_selectedCountry.fullCountryCode}"), "");
       }
     }
 
@@ -392,7 +398,8 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         widget.onSaved?.call(
           PhoneNumber(
             countryISOCode: _selectedCountry.code,
-            countryCode: '+${_selectedCountry.dialCode}${_selectedCountry.regionCode}',
+            countryCode:
+                '+${_selectedCountry.dialCode}${_selectedCountry.regionCode}',
             number: value!,
           ),
         );
